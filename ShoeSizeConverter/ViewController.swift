@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var convertedLabel: UILabel!
     @IBOutlet weak var convertButton: UIButton!
     @IBOutlet weak var warningLabel: UILabel!
-    let CONV_CONSTANT = 9
+    let CONV_CONSTANT = 8.75
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,19 +27,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func convertButtonPressed(sender: UIButton) {
-        let fromSize = mensShoeSizeTF.text
-        let numberFromSizeTxt = fromSize.toInt()
-        if (numberFromSizeTxt != nil) {
-            var integerFromTextField =  numberFromSizeTxt!
-            integerFromTextField*=CONV_CONSTANT
+        if((mensShoeSizeTF.text.toInt()) != nil){
+            let integerFromTextField = mensShoeSizeTF.text.toInt()!
             convertedLabel.hidden=false
-            let stringWithUpdatedShoeSize = "\(integerFromTextField)"
+    
+            let stringWithUpdatedShoeSize = "\(Int(Double(integerFromTextField) * CONV_CONSTANT)) in EU Shoe Size"
             convertedLabel.text = stringWithUpdatedShoeSize
         }else{
             convertedLabel.hidden=true
             convertedLabel.text = ""
-
         }
+    
         mensShoeSizeTF.resignFirstResponder()
     }
     
