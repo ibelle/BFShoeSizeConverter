@@ -11,9 +11,13 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var mensShoeSizeTF: UITextField!
-    @IBOutlet weak var convertedLabel: UILabel!
+    @IBOutlet weak var mensConvertedLabel: UILabel!
     @IBOutlet weak var convertButton: UIButton!
     @IBOutlet weak var warningLabel: UILabel!
+    
+    @IBOutlet weak var womensShoeSizeTF: UITextField!
+    @IBOutlet weak var womensConvertedLabel: UILabel!
+    
     let CONV_CONSTANT = 8.75
     
     override func viewDidLoad() {
@@ -27,19 +31,41 @@ class ViewController: UIViewController {
     }
     
     @IBAction func convertButtonPressed(sender: UIButton) {
-        if((mensShoeSizeTF.text.toInt()) != nil){
-            let integerFromTextField = mensShoeSizeTF.text.toInt()!
-            convertedLabel.hidden=false
-    
-            let stringWithUpdatedShoeSize = "\(Int(Double(integerFromTextField) * CONV_CONSTANT)) in EU Shoe Size"
-            convertedLabel.text = stringWithUpdatedShoeSize
+        
+        
+        if let integerFromTextField =
+            mensShoeSizeTF.text.toInt() {
+            mensConvertedLabel.hidden=false
+            let stringWithUpdatedShoeSize = converShoeSize(integerFromTextField) +
+            " in EU Shoe Size"
+            mensConvertedLabel.text = stringWithUpdatedShoeSize
         }else{
-            convertedLabel.hidden=true
-            convertedLabel.text = ""
+            mensConvertedLabel.hidden=true
+            mensConvertedLabel.text = ""
+
         }
-    
+        
+        if  let integerFromTextField = womensShoeSizeTF.text.toInt() {
+            womensConvertedLabel.hidden=false
+            
+            let stringWithUpdatedShoeSize = converShoeSize(integerFromTextField) +
+            " in EU Shoe Size"
+            womensConvertedLabel.text = stringWithUpdatedShoeSize
+        }else{
+            womensConvertedLabel.hidden=true
+            womensConvertedLabel.text=""
+        }
+        
         mensShoeSizeTF.resignFirstResponder()
     }
     
+    
+    
+    func converShoeSize(usShoeSize:Int) -> String {
+        let returnVal = "\(Int(Double(usShoeSize) * CONV_CONSTANT))"
+        return returnVal;
+    }
+    
+
 }
 
