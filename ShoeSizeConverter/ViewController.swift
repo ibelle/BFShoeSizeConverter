@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         if let integerFromTextField =
             mensShoeSizeTF.text.toInt() {
             mensConvertedLabel.hidden=false
-            let stringWithUpdatedShoeSize = converShoeSize(integerFromTextField) +
+            let stringWithUpdatedShoeSize = converShoeSize(integerFromTextField, conversionConst:CONV_CONSTANT) +
             " in EU Shoe Size"
             mensConvertedLabel.text = stringWithUpdatedShoeSize
         }else{
@@ -45,10 +45,11 @@ class ViewController: UIViewController {
 
         }
         
-        if  let integerFromTextField = womensShoeSizeTF.text.toInt() {
+        if  let doubleFromTextField =
+            ((womensShoeSizeTF.text as NSString?)?.doubleValue){ //optional Chaining to ensure the thing I assign let var is an Optional Type
             womensConvertedLabel.hidden=false
             
-            let stringWithUpdatedShoeSize = converShoeSize(integerFromTextField) +
+            let stringWithUpdatedShoeSize = converShoeSize(doubleFromTextField, conversionConst:CONV_CONSTANT) +
             " in EU Shoe Size"
             womensConvertedLabel.text = stringWithUpdatedShoeSize
         }else{
@@ -61,10 +62,16 @@ class ViewController: UIViewController {
     
     
     
-    func converShoeSize(usShoeSize:Int) -> String {
-        let returnVal = "\(Int(Double(usShoeSize) * CONV_CONSTANT))"
+    func converShoeSize(usShoeSize:Int, conversionConst:Double) -> String {
+        let returnVal = "\(Int(Double(usShoeSize) * conversionConst))"
         return returnVal;
     }
+    
+    func converShoeSize(usShoeSize:Double, conversionConst:Double) -> String {
+        let returnVal = "\(Int(usShoeSize * conversionConst))"
+        return returnVal;
+    }
+
     
 
 }
